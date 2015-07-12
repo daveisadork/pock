@@ -16,12 +16,14 @@
 
 import pbr.version
 
-from . import client
 from . import shell
+from .api.resources import ResourceManager
 
 __version__ = pbr.version.VersionInfo('pock').version_string()
 
+resources = ResourceManager()
+
 __all__ = [
-    'client',
+    'resources',
     'shell',
 ]
