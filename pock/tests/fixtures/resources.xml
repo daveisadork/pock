@@ -1,0 +1,28 @@
+<cib>
+  <configuration>
+    <resources>
+      <primitive class="ocf" id="Resource1" provider="test_provider" type="test_type">
+        <instance_attributes id="Resource1-instance_attributes">
+          <nvpair id="Resource1-instance_attributes-foo" name="foo" value="bar1"/>
+          <nvpair id="Resource1-instance_attributes-baz" name="baz" value="quux1"/>
+        </instance_attributes>
+        <operations>
+          <op id="Resource1-start-timeout-1" interval="4" name="start" timeout="1"/>
+          <op id="Resource1-stop-timeout-2" interval="5" name="stop" timeout="2"/>
+          <op id="Resource1-monitor-interval-3" interval="6" name="monitor" timeout="3"/>
+        </operations>
+      </primitive>
+      <primitive class="ocf" id="Resource2" provider="test_provider" type="test_type">
+        <instance_attributes id="Resource2-instance_attributes">
+          <nvpair id="Resource2-instance_attributes-foo" name="foo" value="bar2"/>
+          <nvpair id="Resource2-instance_attributes-baz" name="baz" value="quux2"/>
+        </instance_attributes>
+        <operations>
+          <op id="Resource2-start-timeout-10" interval="40" name="start" timeout="10"/>
+          <op id="Resource2-stop-timeout-20" interval="50" name="stop" timeout="20"/>
+          <op id="Resource2-monitor-interval-30" interval="60" name="monitor" timeout="30"/>
+        </operations>
+      </primitive>
+    </resources>
+  </configuration>
+</cib>
