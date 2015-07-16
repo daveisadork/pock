@@ -1,3 +1,4 @@
+import os
 import unittest
 
 from click.testing import CliRunner
@@ -14,7 +15,8 @@ __all__ = [
 
 
 def fake_utils(command):
-    with open('fixtures/resources.xml') as f:
+    response_xml = os.path.join(os.path.dirname(__file__), '..', 'fixtures/resources.xml')
+    with open(response_xml) as f:
         return pq(f.read())
 
 
