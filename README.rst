@@ -11,3 +11,7 @@ Example Usage
     pock.resources.list()
     pock.resources.describe()
     pock.resources.create()
+
+Build Status
+============
+https://travis-ci.org/mechaxl/pock.svg
