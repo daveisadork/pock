@@ -23,9 +23,11 @@ def fake_utils(command):
 class ResourceListTests(unittest.TestCase):
 
     def setUp(self):
-        p = mock.patch.object(utils, 'cibadmin', fake_utils)
-        p.start()
-        self.addCleanup(p.stop)
+        self.p = mock.patch.object(utils, 'cibadmin', fake_utils)
+        self.p.start()
+
+    def tearDown(self):
+        self.p.stop()
 
     def test_two_resources(self):
         runner = CliRunner()
