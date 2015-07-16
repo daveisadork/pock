@@ -1,0 +1,15 @@
+language: python
+
+# command to install dependencies
+install:
+ - pip install tox
+
+# command to run tests
+script: tox
+
+env:
+  - TOXENV=py26
+  - TOXENV=py27
+  - TOXENV=py33
+  - TOXENV=py34
+  - TOXENV=pep8

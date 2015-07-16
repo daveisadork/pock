@@ -21,18 +21,16 @@ class Resource(base.BaseResource):
 
     @staticmethod
     def from_xml(xml):
-        attributes = {
-            el.get('name'): el.get('value')
-            for el in pq(xml).find('nvpair')
-        }
+        attributes = dict(
+            (el.get('name'), el.get('value'))
+            for el in pq(xml).find('nvpair'))
 
-        operations = {
-            el.get('name'): {
+        operations = dict(
+            (el.get('name'), {
                 'interval': el.get('interval'),
                 'timeout': el.get('timeout'),
-            }
-            for el in pq(xml).find('op')
-        }
+            })
+            for el in pq(xml).find('op'))
 
         return Resource(
             name=xml.get('id'),
@@ -45,9 +43,9 @@ class Resource(base.BaseResource):
         )
 
     def to_dict(self):
-        return {
-            attr: getattr(self, attr)
-            for attr in self.fields}
+        return dict(
+            (attr, getattr(self, attr))
+            for attr in self.fields)
 
 
 class ResourceManager(object):

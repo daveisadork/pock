@@ -16,8 +16,8 @@
 
 import pbr.version
 
-from . import shell
-from .api.resources import ResourceManager
+from pock import shell
+from pock.api.resources import ResourceManager
 
 __version__ = pbr.version.VersionInfo('pock').version_string()
 
