@@ -14,4 +14,4 @@ Example Usage
 
 Build Status
 ============
-https://travis-ci.org/mechaxl/pock.svg
+.. image:: https://travis-ci.org/mechaxl/pock.svg
