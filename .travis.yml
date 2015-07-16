@@ -1,16 +1,15 @@
 language: python
-python:
-  - "2.6"
-  - "2.7"
-  - "3.2"
-  - "3.3"
-  - "3.4"
-  - "nightly"
 
 # command to install dependencies
 install:
  - pip install tox
- - pip install -r requirements.txt -r test-requirements.txt
 
 # command to run tests
 script: tox
+
+env:
+  - TOXENV=py26
+  - TOXENV=py27
+  - TOXENV=py33
+  - TOXENV=py34
+  - TOXENV=pep8
