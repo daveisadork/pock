@@ -21,6 +21,11 @@ class Resource(base.BaseResource):
 
     @staticmethod
     def from_xml(xml):
+        """Creates a Resource from a cibadmin XML string."""
+
+        res_id = xml.get('id')
+        state = utils.get_state(res_id)
+
         attributes = dict(
             (el.get('name'), el.get('value'))
             for el in pq(xml).find('nvpair'))
@@ -33,19 +38,13 @@ class Resource(base.BaseResource):
             for el in pq(xml).find('op'))
 
         return Resource(
-            name=xml.get('id'),
+            name=res_id,
             klass=xml.get('class'),
             provider=xml.get('provider'),
             type=xml.get('type'),
-            state='',
+            state=state,
             attributes=attributes,
-            operations=operations,
-        )
-
-    def to_dict(self):
-        return dict(
-            (attr, getattr(self, attr))
-            for attr in self.fields)
+            operations=operations)
 
 
 class ResourceManager(object):
