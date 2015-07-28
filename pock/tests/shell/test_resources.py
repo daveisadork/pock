@@ -16,7 +16,7 @@ __all__ = [
 class ResourceListTests(unittest.TestCase):
 
     def setUp(self):
-        self.p1 = mock.patch.object(utils, 'cibadmin', test_utils.fake_cibadmin)
+        self.p1 = mock.patch.object(utils, 'get_cib', test_utils.fake_get_cib)
         self.p2 = mock.patch.object(utils, 'crm_mon', test_utils.fake_crm_mon)
         self.p1.start()
         self.p2.start()

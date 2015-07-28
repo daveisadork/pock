@@ -21,3 +21,19 @@ def resource_list():
             'type': resource.type,
             'state': resource.state,
         }))
+
+
+@resource_cli.command(name='create')
+@click.argument('res_id', metavar='<id>')
+@click.argument('res_type', metavar='<type>')
+def resource_create(res_id, res_type):
+    klass, provider, _type = res_type.split(':')
+
+    new_resource = resources.create(
+        name=res_id,
+        klass=klass,
+        provider=provider,
+        type=_type,
+    )
+
+    print("Created resource %s." % new_resource.name)

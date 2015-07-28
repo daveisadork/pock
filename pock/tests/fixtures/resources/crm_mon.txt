@@ -17,3 +17,4 @@ Full list of resources:
  Resource2	(ocf::heartbeat:Dummy):	Stopped
  Resource3	(ocf::heartbeat:Dummy):	Started Node2
  Resource4	(ocf::heartbeat:Dummy):	Stopped
+ TestCreateResource	(ocf::heartbeat:Dummy):	Stopped

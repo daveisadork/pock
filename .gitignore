@@ -34,4 +34,4 @@ ChangeLog
 .idea/
 *.junit.xml
 *.flake8
-pock/tests/fixtures/full*.xml
+pock/tests/fixtures/resources/full*.xml
