@@ -21,6 +21,11 @@ def update_cib(new_xml, parent=None):
 
     cib = get_cib()
 
+    el_id = new_xml.attr('id')
+
+    if cib.find('#' + el_id):
+        raise Exception("Resource %s already exists!" % el_id)
+
     cib.find(parent).append(new_xml)
 
     p = subprocess.Popen(['cibadmin', '--replace', '--xml-pipe'], stdout=subprocess.PIPE, stdin=subprocess.PIPE)

@@ -33,6 +33,11 @@ def fake_get_cib():
 def fake_update_cib(new_xml, parent='cib'):
     """Updates the testing CIB."""
 
+    el_id = new_xml.attr('id')
+
+    if cib.find('#' + el_id):
+        raise Exception("Resource %s already exists!" % el_id)
+
     cib.find(parent).append(new_xml)
     return cib
 

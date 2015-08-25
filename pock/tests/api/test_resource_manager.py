@@ -149,3 +149,28 @@ class ResourceCreateTests(unittest.TestCase):
                 'interval': '0',
             }},
         })
+
+    def test_resource_create_duplicate(self):
+        pock.resources.create(
+            name='TestDuplicateResource',
+            provider='test_provider',
+            type='test_type',
+            attributes={'foo': 'foo'},
+            operations={'start': {
+                'timeout': '30',
+                'interval': '0',
+            }},
+        )
+
+        self.assertRaises(
+            Exception,
+            pock.resources.create,
+            name='TestDuplicateResource',
+            provider='test_provider',
+            type='test_type',
+            attributes={'foo': 'foo'},
+            operations={'start': {
+                'timeout': '30',
+                'interval': '0',
+            }},
+        )
