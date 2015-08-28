@@ -1,6 +1,7 @@
 from pyquery import PyQuery as pq
 
 from pock.api import base
+from pock.api import exceptions
 from pock.api import utils
 
 
@@ -101,6 +102,12 @@ class ResourceManager(object):
     def list(self):
         xml = utils.get_cib()
         return self.from_xml(xml.find('primitive.ocf'))
+
+    def get(self, res_id):
+        try:
+            return next(r for r in self.list() if r.name == res_id)
+        except StopIteration:
+            raise exceptions.ResourceNotFound('The resource "%s" could not be found.' % res_id)
 
     def create(self, **kwargs):
         new_resource = Resource(
