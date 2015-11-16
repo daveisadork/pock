@@ -32,7 +32,7 @@ class ResourceListTests(unittest.TestCase):
 
         self.assertEqual(resources[0].to_dict(), {
             'name': 'Resource1',
-            'klass': 'ocf',
+            'cls': 'ocf',
             'provider': 'test_provider',
             'type': 'test_type',
             'state': 'Started',
@@ -49,7 +49,7 @@ class ResourceListTests(unittest.TestCase):
 
         self.assertEqual(resources[1].to_dict(), {
             'name': 'Resource2',
-            'klass': 'ocf',
+            'cls': 'ocf',
             'provider': 'test_provider',
             'type': 'test_type',
             'state': 'Stopped',
@@ -95,7 +95,7 @@ class ResourceCreateTests(unittest.TestCase):
 
         # Make sure that the new Python object got created properly
         self.assertEqual('TestCreateResource', resource.name)
-        self.assertEqual('ocf', resource.klass)
+        self.assertEqual('ocf', resource.cls)
         self.assertEqual('test_provider', resource.provider)
         self.assertEqual('test_type', resource.type)
 
@@ -105,7 +105,7 @@ class ResourceCreateTests(unittest.TestCase):
 
         self.assertEqual(resources[0].to_dict(), {
             'name': 'Resource1',
-            'klass': 'ocf',
+            'cls': 'ocf',
             'provider': 'test_provider',
             'type': 'test_type',
             'state': 'Started',
@@ -122,7 +122,7 @@ class ResourceCreateTests(unittest.TestCase):
 
         self.assertEqual(resources[1].to_dict(), {
             'name': 'Resource2',
-            'klass': 'ocf',
+            'cls': 'ocf',
             'provider': 'test_provider',
             'type': 'test_type',
             'state': 'Stopped',
@@ -139,7 +139,7 @@ class ResourceCreateTests(unittest.TestCase):
 
         self.assertEqual(resources[2].to_dict(), {
             'name': 'TestCreateResource',
-            'klass': 'ocf',
+            'cls': 'ocf',
             'provider': 'test_provider',
             'type': 'test_type',
             'state': 'Stopped',

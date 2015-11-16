@@ -1,28 +1,30 @@
+from jinja2 import Template
 from pyquery import PyQuery as pq
 
-from pock.api import base
 from pock.api import exceptions
 from pock.api import utils
 
 
-class Resource(base.BaseResource):
+class Resource(object):
 
-    fields = [
-        'name',
-        'klass',
-        'provider',
-        'type',
-        'state',
-        'attributes',
-        'operations',
-    ]
+    def __init__(self, **kwargs):
+        self.name = kwargs.get('name')
+        self.cls = kwargs.get('cls')
+        self.provider = kwargs.get('provider')
+        self.type = kwargs.get('type')
+        self.state = kwargs.get('state')
+        self.attributes = kwargs.get('attributes')
+        self.operations = kwargs.get('operations')
 
     def __unicode__(self):
         return "<Resource: %s>" % self.name
 
     @staticmethod
     def from_xml(xml):
-        """Creates a Resource from a cibadmin XML string."""
+        """Creates a Resource from a cibadmin XML string.
+
+        :param xml: The XML to parse
+        """
 
         res_id = xml.get('id')
         state = utils.get_state(res_id)
@@ -40,7 +42,7 @@ class Resource(base.BaseResource):
 
         return Resource(
             name=res_id,
-            klass=xml.get('class'),
+            cls=xml.get('class'),
             provider=xml.get('provider'),
             type=xml.get('type'),
             state=state,
@@ -48,48 +50,35 @@ class Resource(base.BaseResource):
             operations=operations)
 
     def to_xml(self):
-        template = """
-            <primitive class="{class}" id="{name}" provider="{provider}" type="{type}">
-              <instance_attributes id="{name}-instance_attributes">
-                {attributes}
+        template = Template("""
+            <primitive class="{{ class }}" id="{{ name }}" provider="{{ provider }}" type="{{ type }}">
+              <instance_attributes id="{{ name }}-instance_attributes">
+                {% for key, value in attributes.items() %}
+                <nvpair id="{{ name }}-instance_attributes-{{ key }}" name="{{ key }}" value="{{ value }}"/>
+                {% endfor %}
               </instance_attributes>
               <operations>
-                {operations}
+                {% for key, value in operations.items() %}
+                <op id="{{ name }}-{{ key }}-timeout-{{ value.interval }}" interval="{{ value.interval }}"
+                  name="{{ key }}" timeout="{{ value.timeout }}"/>
+                {% endfor %}
               </operations>
             </primitive>
-        """
+        """)
 
-        nvpair_template = '<nvpair id="{name}-instance_attributes-{key}" ' \
-                          'name="{key}" value="{value}"/>'
-        op_template = '<op id="{name}-{key}-timeout-{interval}" interval="{interval}" ' \
-                      'name="{key}" timeout="{timeout}"/>'
-
-        return pq(template.format(**{
-            'class': self.klass,
+        return pq(template.render(**{
+            'class': self.cls,
             'name': self.name,
             'provider': self.provider,
             'type': self.type,
-            'attributes': '\n'.join(
-                nvpair_template.format(**{
-                    'name': self.name,
-                    'key': key,
-                    'value': value,
-                })
-                for key, value in self.attributes.items()),
-            'operations': '\n'.join(
-                op_template.format(**{
-                    'name': self.name,
-                    'key': key,
-                    'timeout': value['timeout'],
-                    'interval': value['interval'],
-                })
-                for key, value in self.operations.items()),
+            'attributes': self.attributes,
+            'operations': self.operations,
         }))
 
     def to_dict(self):
         return {
             'name': self.name,
-            'klass': self.klass,
+            'cls': self.cls,
             'provider': self.provider,
             'type': self.type,
             'state': self.state,
@@ -112,7 +101,7 @@ class ResourceManager(object):
     def create(self, **kwargs):
         new_resource = Resource(
             name=kwargs['name'],
-            klass=kwargs.get('klass', 'ocf'),
+            cls=kwargs.get('cls', 'ocf'),
             provider=kwargs['provider'],
             type=kwargs['type'],
             state=kwargs.get('state', 'Stopped'),
