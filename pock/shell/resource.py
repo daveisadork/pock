@@ -1,4 +1,5 @@
 import click
+import yaml
 
 from pock.api.resources import ResourceManager
 
@@ -21,6 +22,13 @@ def resource_list():
             'type': resource.type,
             'state': resource.state,
         }))
+
+
+@resource_cli.command(name='show', help="Shows resource in YAML format.")
+@click.argument('res_id', metavar='<id>')
+def resource_show(res_id):
+    resource = resources.get(res_id)
+    print(yaml.dump(resource.to_dict(), default_flow_style=False))
 
 
 @resource_cli.command(name='create')
