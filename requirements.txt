@@ -3,3 +3,4 @@ click>=4.0
 pbr>=0.6
 six>=1.9.0
 pyyaml>=3.0
+jinja2>=2.7.0
