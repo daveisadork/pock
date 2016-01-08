@@ -1,18 +1,19 @@
+Introduction
+============
+
 ``pock`` is a library that aims to make interacting with Pacemaker as simple as possible.
-It has Python bindings, as well as a command-line interface based on `click <https://github.com/mitsuhiko/click>`_.
+It has Python bindings, as well as a command-line interface based on
+`click <https://github.com/mitsuhiko/click>`_. It's in an early stage of development, so
+don't rely on it for anything critical.
 
 Installation
 ============
 
-The easiest way to install pock is to use ``pip``.
+Clone this repository:
 
-    pip install pock
+    git clone https://github.com/mechaxl/pock.git && cd pock/
 
-To install without ``pip``, clone this repository like this.
-
-    git clone https://github.com/mechaxl/pock.git
-
-And install using setuptools.
+And install using setuptools:
 
     python setup.py install
 
@@ -35,7 +36,3 @@ In Python
 
     pock.resources.list()
 
-Build Status
-============
-.. image:: https://travis-ci.org/mechaxl/pock.svg
-    :target: https://travis-ci.org/mechaxl/pock
